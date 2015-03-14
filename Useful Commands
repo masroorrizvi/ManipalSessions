@@ -1,0 +1,29 @@
+To view contents of a folder
+-----------------------------------------
+fs -ls /
+
+To create a new folder in CDH4
+---------------------------------------
+sudo -u hdfs hadoop fs -mkdir /hadoopexamples
+
+
+To give permissions to the newly created folder
+------------------------------------------
+
+To Remove File from HDFS
+--------------------------------
+hadoop fs -rm -r /hadoopexamples/test.tx
+
+To Remove Folder from HDFS
+--------------------------------
+sudo -u hdfs hadoop fs -rm -r /hadoopexamples
+
+
+
+Python Code using Pipes
+---------------------------
+cat /home/cloudera/Desktop/Oreilly\ Book\ Examples/Chap\ 2/Max\ Temperature\ java/sample.txt | /home/cloudera/Desktop/Oreilly\ Book\ Examples/Chap\ 2/Max\ Temperature\ python/max_temperature_map.py | \sort | /home/cloudera/Desktop/Oreilly\ Book\ Examples/Chap\ 2/Max\ Temperature\ python/max_temperature_reduce.py
+
+Python Code using Streaming (copy the python files to /tmp folder)
+---------------------------
+hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming-2.0.0-cdh4.4.0.jar -input /user/cloudera/test/sample.txt -output /user/cloudera/test/output -mapper /tmp/max_temperature_map.py -reducer /tmp/max_temperature_reduce.py
