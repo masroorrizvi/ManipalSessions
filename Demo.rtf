@@ -1,0 +1,516 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red63\green63\blue63;\red254\green254\blue251;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww25100\viewh12840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\b\fs24 \cf0 Problem Statement
+\b0   = >  Count the number of occurrence of a word in the given file (Word Count)\
+========================================================================\
+\
+abc def ghi jkl mno pqr	P1 \
+\
+abc def ghi jkl mno pqr	P2 \
+\
+abc def ghi jkl mno pqr	P3 \
+\
+abc def ghi jkl mno pqr      P4\
+\
+abc def ghi jkl mno pqr	P5\
+\
+abc def ghi jkl mno pqr	P6\
+\
+========================================================================\
+\
+
+\b First Approach \
+===============\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 (identifying the key and doing the processing<increasing the counter>)
+\b \
+
+\b0 \
+(
+\i\b Issues
+\i0\b0  - Dependency, Wait Time in case of  crash scenario, Loss of data)\
+abc 1, 1+1=2 - >  2+1=3->>>>>> 6\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Second Approach\
+=================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Mapper
+\b0 \
+============\
+
+\b Second Approach - 1st Part\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97-\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 \
+P1 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1 \
+\
+P2 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
+\
+P3 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
+\
+P4 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
+\
+P5 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
+\
+P6 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Pseudo Code for the Second Approach - 1st Part (Mapper)
+\b0 \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+processOne (filename, file_content) \{\
+\
+	for each word in file_content \{\
+		emit (word, 1);\
+	\}\
+\}\
+\
+
+\b Reducer
+\b0 \
+=============\
+
+\b Second Approach - 2nd Part (Reducer)\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\b0 \
+\
+(abc, 1,1,1,1,1,1)\
+(def, 1,1,1,1,1,1)\
+\'85\'85..\
+\'85..\
+\'85.\
+\
+R1 = abc (1+1+1+1+1+1)=6\
+\
+R2 = def  (1+1+1+1+1+1)=6\
+\'85\'85\'85.\
+\'85.\
+\
+
+\b Pseudo Code for the Second Approach - 2nd Part
+\b0 \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+processTwo (word, values) \{\
+	\
+	int sum = 0;\
+\
+for each value in the values () \{\
+	sum+=value;\
+\}\
+	emit (word, sum);\
+\}\
+\
+\
+\
+\
+\
+\
+\
+\
+
+\b Partitioner\
+==========================
+\b0 \
+\
+Default - Hash Modulo Partitioner\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+2 Reducers\
+Modulo (for e.g abc) => [0,1]\
+\
+\
+abc % 2  => 0\
+\
+def % 2  =>  1\
+\
+\
+==========================\
+Custom Partitioner\
+==========================\
+This is a separate class which extends Partition\
+\
+\
+=================\
+
+\b Blocks versus Input Split
+\b0 \
+==========================\
+\
+1TB file - Block Size is 64 MB\
+\
+Number of blocks => 1TB/64 MB => 64MB, 64MB, 64MB, 64MB, 64MB, 64MB, 64MB, \'85\'85\
+\
+
+\b Blocks 1
+\b0 \
+
+\b abc def ghi jkl mno pqr	\\n\
+abc def ghi jkl mno pqr	\\n\
+abc def ghi jkl mno pqr	\\n\
+abc def ghi jkl mno pqr      \\n\
+abc def ghi jkl mno\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Block2
+\b0  \
+
+\b pqr	\\n
+\b0  (Input Split)\
+\
+abc def ghi jkl  mno pqr,     \\n\
+abc def ghi jkl mno pqr	\\n\
+abc def ghi jkl mno pqr	\\n\
+\'85..\
+.\
+\'85\
+..\
+=================================\
+
+\b Combiner
+\b0 \
+================================\
+Input Split\
+abc def ghi jkl mno pqr 
+\b abc
+\b0      \\n M1 (abc 1, def 1, ghi 1, jkl 1, mnq 1, abc 1)\
+\
+abc (1+1+2 \
+\
+\
+\
+abc def ghi jkl mno pqr  abc \\n  M1\
+\
+abc def ghi jkl mno pqr ghi  abc  \\n M2\
+\
+abc def ghi jkl mno pqr jkl       \\n\
+\
+abc def ghi jkl mno pqr mnq   \\n\
+\
+abc def ghi jkl mno pqr pqr     \\n\
+\
+Input to the d=reducer = abc 1,1, 1, 1, 1, 1, 1\'85. (Without combiner)\
+Input to the d=reducer = abc 2, 1, 1, 1, 1, 1\'851,. (With Combiner)\
+\
+Only works if the values are associative (groups) and commutative (commute) \
+\
+a+(b+c)=(a+b)+c\
+\
+a+b = b+a\
+\
+\
+\
+\
+=================================\
+Reduce Side Join\
+================================\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Customer Tables / Files - 
+\b CustId,
+\b0  Firstname, Lastname\'85\'85 (Master File)\
+\
+Transaction Tables / Files (Transaction File) \
+Txnid, 
+\b Custid
+\b0 , amount , date, \'85\'85.\
+\
+
+\b Problem Statement
+\b0 \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+1. How many transactions are done by all the customers which are there in the customers file ?\
+2. What is the name of the customer ?\
+3. What is total amount that customer has spent in all the above transactions that it has done ?\
+\
+\
+\
+
+\b SQL / RDBMS World\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+SQL Join\
+\
+Cust Id, Customer Name,  Amount, Date\'85\'85\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Map Reduce World\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+- Data Set\
+\
+- 2 Mappers\
+CustomerMapper\
+TransactionMapper\
+\
+\
+Mapper Output\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97-\
+ Key<4000001>, Values \{(txns/t<trasactionvalue1>), (txns/t<trasactionvalue2>),(custs/t<customername>),\'85\'85\'85\'85\'85\'85\'85.. (Inside Java Iterator)\
+\'85..\
+\
+\
+Reduce Psuedo Logic\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97-\
+\
+if (cust) \{\
+Storing the name;\
+\} else if (trans) \{\
+	count++\
+	total = total +value\
+\}\
+\
+\
+=================================\
+Map Side Join / Distributed Cache\
+================================\
+\
+Problem Statement\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Given the abbreviated name of the state, get the complete name (from distributed cache)\
+\
+Population File (mapjoininput)\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+up			<some population>\
+Other States	<some population>\
+.\
+.\
+.\
+.\
+\
+Distributed Cache (mapjoindistcache.dat)\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+up			Uttar_Pradesh\
+Other States	<Other Full Forms>\
+.\
+.\
+.\
+.\
+\
+\
+=================================\
+Custom Counter\
+================================\
+\
+Problem Statement\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Given and input file, find the number of records for a particular month\
+\
+Sample File\
+\'97\'97\'97\'97\'97\'97\'97\'97\
+one,1386023259550 (Unix Time Stamps)\
+two,1389523259550\
+three,1389523259550\
+four,1389523259550\
+\
+\
+=================================\
+Sequence File \
+================================\
+\
+Problem Statement\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+I have a list of images where the image files are duplicates.\
+I want to find out the unique list of the images out of the given no of images.\
+\
+Solution\
+\'97\'97\'97\'97\'97\'97\'97\
+\
+1. Binary Image Data => Sequence File Data (Map Reduce) \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Mapper
+\b0 \
+		
+\b Key
+\b0 		   
+\b Value
+\b0 			
+\b File Type
+\b0 \
+Input => Byte Offset,     URI			Text\
+Output=> URI,               Byte Writable  	Sequence\
+\
+2. Sequence File Data=>Unique Image Files (Map Reduce)\
+
+\b Mapper
+\b0 \
+		
+\b Key
+\b0 		   
+\b Value
+\b0 			
+\b File Type
+\b0 \
+Input => URI, 		   Byte Writable\
+Output=> Text(MD5),    URI and URI Collection for Duplicate 			\
+\
+
+\b Reducer\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 =================================\
+Secondary Sort\
+================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Problem Statement
+\b0   = >  Give the temperature data, sort the year (key) in ascending order and max temp (value) in descending order\
+=======================================================================\
+Year 1900, 30\
+Year 1900, 40\
+\'85\'85\
+..\
+\'85.\
+\'85\
+\
+Year 1901, 27\
+\'85.\
+\
+
+\b How framework does it ?
+\b0 \
+mapper ()\
+\
+- Sorting <Natural Key>\
+- Partitioning - Shuffling (Custom Part) (sending the keys to the respective reducer)<Natural Key>\
+- Partitioning - Grouping - (creating partitions of keys to be read / processed by the reducers) <Natural Key>\
+\
+reducer()\
+\
+
+\b How we will do  it ?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 - Data sets\
+- Composite Customised Key (Natural Key + Natural Value)
+\b0 \
+
+\b - Customised Sort comparator (Natural Key + Natural Value)
+\b0 \
+
+\b - Customised Partitioner - (Natural Key - Year) \
+- Customised Group Comparator - (Natural Key - Year) 
+\b0 \
+
+\b - Driver Class
+\b0 	\
+
+\b - Mapper Implementation
+\b0 \
+- Reducer Implementation\
+
+\b - Helper classes (if at all required)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b0 \cf0 =================================\
+Pig\
+================================\
+\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	\'95	}DUMP (Done)\
+{\listtext	\'95	}UNION (Done)\
+{\listtext	\'95	}SPLIT (Done)\
+{\listtext	\'95	}FILTER (Done)\
+{\listtext	\'95	}GROUP (Done)		 \
+{\listtext	\'95	}DESCRIBE (Done)\
+{\listtext	\'95	}ALL \
+{\listtext	\'95	}COUNT\
+{\listtext	\'95	}COGROUP\
+{\listtext	\'95	}JOIN (INNER JOIN)\
+{\listtext	\'95	}MULTIPLICATION\
+{\listtext	\'95	}\
+{\listtext	\'95	}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\
+() - Tuple\
+\{\} - Bag\
+\
+\{(1,2), (3,4), (4,5)\}\'85..\
+\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
+\ls2\ilvl0\cf0 {\listtext	\'95	}Word Count\
+{\listtext	\'95	}PiggyBank - Normal UDF with one tag\
+{\listtext	\'95	}PiggyBank - Normal UDF with multiple tags\
+{\listtext	\'95	}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\
+\
+=================================\
+SQOOP\
+================================\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1\fs22 \cf0 \CocoaLigature0 GRANT ALL PRIVILEGES ON *.* TO 'root\'92@\'92localhost\'92 WITH GRANT OPTION;
+\f0\fs24 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\ls3\ilvl0
+\f1\fs22 \cf0 \CocoaLigature0 GRANT ALL PRIVILEGES ON *.* TO root@localhost IDENTIFIED BY \'91root\'92 WITH GRANT OPTION;\
+\pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 \
+\pard\pardeftab720\sl380
+\ls4\ilvl0
+\fs26 \cf2 \cb3 \CocoaLigature1 GRANT ALL PRIVILEGES \
+ON Edureka.* \
+TO \'91root\'92@\'91localhost'\
+IDENTIFIED BY \'91password\'92 \
+WITH GRANT OPTION;\
+\pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs24 \cf0 \cb1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+ \
+\
+\
+\
+ \
+\
+\
+\
+\
+\
+\
+\
+}
