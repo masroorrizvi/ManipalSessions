@@ -30,9 +30,8 @@ abc def ghi jkl mno pqr	P6\
 
 \b First Approach \
 ===============\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 (identifying the key and doing the processing<increasing the counter>)
+\b0 (identifying the key and doing the processing<increasing the counter>)
 \b \
 
 \b0 \
@@ -41,24 +40,20 @@ abc def ghi jkl mno pqr	P6\
 \i0\b0  - Dependency, Wait Time in case of  crash scenario, Loss of data)\
 abc 1, 1+1=2 - >  2+1=3->>>>>> 6\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b \cf0 Second Approach\
+\b Second Approach\
 =================\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\b0 \
 
-\b \cf0 Mapper
+\b Mapper
 \b0 \
 ============\
 
 \b Second Approach - 1st Part\
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 \
+\b0 \
 P1 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1 \
 \
 P2 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
@@ -71,9 +66,8 @@ P5 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
 \
 P6 => abc 1, def 1, ghi 1, jkl 1, mnq 1, pqr 1\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b \cf0 Pseudo Code for the Second Approach - 1st Part (Mapper)
+\b Pseudo Code for the Second Approach - 1st Part (Mapper)
 \b0 \
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 \
@@ -138,9 +132,9 @@ Default - Hash Modulo Partitioner\
 Modulo (for e.g abc) => [0,1]\
 \
 \
-abc % 2  => 0\
+abc (ASKII Value) % 2  => 0\
 \
-def % 2  =>  1\
+def (ASKII Value) % 2  =>  1\
 \
 \
 ==========================\
@@ -168,12 +162,10 @@ abc def ghi jkl mno pqr	\\n\
 abc def ghi jkl mno pqr	\\n\
 abc def ghi jkl mno pqr      \\n\
 abc def ghi jkl mno\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\b0 \
 
-\b \cf0 Block2
+\b Block2
 \b0  \
 
 \b pqr	\\n
@@ -247,21 +239,18 @@ Txnid,
 \
 
 \b SQL / RDBMS World\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\b0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 SQL Join\
 \
 Cust Id, Customer Name,  Amount, Date\'85\'85\
 \
 \
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b \cf0 Map Reduce World\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\b Map Reduce World\
 
-\b0 \cf0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\b0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 - Data Set\
 \
 - 2 Mappers\
@@ -342,9 +331,8 @@ Solution\
 \'97\'97\'97\'97\'97\'97\'97\
 \
 1. Binary Image Data => Sequence File Data (Map Reduce) \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b \cf0 Mapper
+\b Mapper
 \b0 \
 		
 \b Key
@@ -373,15 +361,13 @@ Output=> Text(MD5),    URI and URI Collection for Duplicate 			\
 
 \b Reducer\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 =================================\
+\b0 =================================\
 Secondary Sort\
 ================================\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b \cf0 Problem Statement
+\b Problem Statement
 \b0   = >  Give the temperature data, sort the year (key) in ascending order and max temp (value) in descending order\
 =======================================================================\
 Year 1900, 30\
@@ -407,12 +393,10 @@ reducer()\
 \
 
 \b How we will do  it ?\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\b0 \
 
-\b \cf0 - Data sets\
+\b - Data sets\
 - Composite Customised Key (Natural Key + Natural Value)
 \b0 \
 
@@ -431,9 +415,8 @@ reducer()\
 - Reducer Implementation\
 
 \b - Helper classes (if at all required)\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\b0 \cf0 =================================\
+\b0 =================================\
 Pig\
 ================================\
 \
