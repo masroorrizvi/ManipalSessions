@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/usr/lib/hadoop/client-0.20/hadoop-common.jar"/>
+	<classpathentry kind="lib" path="/usr/lib/hadoop/client-0.20/hadoop-core.jar"/>
+	<classpathentry kind="lib" path="/usr/lib/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-2.0.0-cdh4.4.0.jar"/>
+	<classpathentry kind="output" path="wordcount_classes"/>
+</classpath>
