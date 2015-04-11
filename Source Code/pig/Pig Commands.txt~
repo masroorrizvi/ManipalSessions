@@ -1,0 +1,46 @@
+Pig Commands
+------------------
+
+a = load '/hadoopexamples/A.txt' using PigStorage(',') as (a1:int, a2:int, a3:int);
+b = load '/hadoopexamples/B.txt' using PigStorage(',') as (b1:int, b2:int, b3:int);
+
+Union
+-------------
+c = UNION a,b;
+
+SPLIT
+-----------------
+SPLIT c INTO d IF $0 == 0, e IF $0 == 1;
+
+FILTER
+--------------
+ f = FILTER c by $1 > 3;
+
+GROUP
+-----
+g = GROUP c by $2;
+
+h = GROUP c ALL;
+
+COUNT
+-----------
+i= FOREACH h GENERATE COUNT($1);
+
+COGROUP
+-------------
+j = COGROUP a by $2, b by $2;
+
+JOINS
+------------------
+k = JOIN a BY $2, b BY $2;
+
+COLUMN MULTIPLICATION
+--------------------
+l = FOREACH c GENERATE a2, a2*a3;
+
+STORE
+---------------------
+STORE l INTO '/hadoopmorningbatch/output/pigoutput';		
+
+
+

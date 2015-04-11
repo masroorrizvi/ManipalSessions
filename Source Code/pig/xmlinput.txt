@@ -1,0 +1,8 @@
+<Property>
+	<name>Pig</name>
+	<name>Session</name>
+	<name>Is</name>
+	<name>Much</name>
+	<name>More</name>
+	<name>Interesting</name>	
+</Property>
