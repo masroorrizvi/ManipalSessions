@@ -1,0 +1,3 @@
+swetha,250000,Chennai
+anamika,200000,kanyakumari
+tarun,300000,Pondi

@@ -1,0 +1,6 @@
+----------------------------------------------------------------
+2014-05-17 05:30:57.130 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance a816c00e-0146-08a9-6221-000000af4dc8
+on database directory /home/cloudera/Desktop/hishamhive/metastore/metastore_db  
+
+Database Class Loader started - derby.database.classpath=''

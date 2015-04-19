@@ -1,0 +1,211 @@
+Create Database and Tables
+-------------------------
+
+
+Internal or Managed Tables (To Save data within warehouse)
+---------------------------
+CREATE TABLE MYCUSTOMER(
+custid INT,
+fname STRING,
+lname STRING,
+country STRING
+)
+row format delimited fields terminated by '\t';
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/HadoopExamples/hive/Customer_Input.txt' into table MYCUSTOMER;
+
+LOAD DATA INPATH '/hadoopexamples/hive/Customer_Input.txt' into table MYCUSTOMER;
+
+drop table mycustomer;
+
+drop database IF EXISTS test CASCADE;
+
+External Tables (To Save dataoutside of warehouse)
+-----------------------------
+
+CREATE EXTERNAL TABLE MYCUSTOMER_EXT(
+custid INT,
+fname STRING,
+lname STRING,
+country STRING)
+row format delimited fields terminated by '\t'
+LOCATION '/hadoopexamples/hive/';
+
+
+Create Dynamic Partition Table (Partitioning has performance benifits while bucketing give more manageable parts within a part)
+-------------------------
+
+Huge Files (1000GB)
+
+/user/hive/warehouse/test.db/<TABLE_NAME><FILE1>
+/user/hive/warehouse/test.db/<TABLE_NAME><FILE2>
+etc..
+Search will be cumbersome or time taking
+SOLUTION
+/user/hive/warehouse/retail.db/<TABLE_NAME><PARTITION_BY_FIELD(date)><BUCKETS_BY_HASH_PARTITION_0(employee)>(Basically Physical dir on HDFS)
+/user/hive/warehouse/retail.db/<TABLE_NAME><PARTITION_BY_FIELD><BUCKETS_BY_HASH_PARTITION_1(employee)>
+/user/hive/warehouse/retail.db/<TABLE_NAME><PARTITION_BY_FIELD><BUCKETS_BY_HASH_PARTITION_2(employee)>
+......
+...
+..
+
+Example:-
+CREATE TABLE TXNRECORDS (txnno INT, txndate STRING, custno INT, amount DOUBLE, category STRING, product STRING, city STRING, state STRING, spendby STRING)
+row format delimited fields terminated by ',';
+ 
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/HadoopExamples/hive/txns' into table TXNRECORDS;
+
+Some operations
+--------------
+SELECT COUNT(*) FROM TXNRECORDS;
+
+SELECT CATEGORY, SUM(amount) FROM TXNRECORDS group by category;
+
+Create partition table
+---------------------
+CREATE TABLE TXNRECORDSBYCAT(txnno INT, txndate STRING, custno INT, amount DOUBLE, product STRING, city STRING, state STRING, spendby STRING)
+partitioned by (category STRING)
+clustered by (state) INTO 10 buckets
+row format delimited fields terminated by ',';
+
+Set partiontioning parameters
+------------------------------
+set hive.exec.dynamic.partition=true;
+set hive.enforce.bucketing=true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+ 
+
+Load Data Into Partition Table 
+------------------------------------
+FROM TXNRECORDS txn INSERT OVERWRITE TABLE TXNRECORDSBYCAT PARTITION(category) select txn.txnno,txn.txndate,txn.custno, 
+txn.amount, txn.product,txn.city, txn.state, txn.spendby,txn.category DISTRIBUTE BY CATEGORY;  
+
+
+Read the data from hdfs
+-----------------------------
+hadoop fs -cat /user/hive/warehouse/test.db/txnrecordsbycat/category=Team\ \Sports/000002_0;
+
+select * from TXNRECORDS where category="Team Sports"; 
+select * from TXNRECORDSBYCAT where category="Team Sports"
+
+
+Create Mannual Partition Table
+-------------------------
+Create main table
+---------------------
+create table messages (name STRING, id INT, year INT, month INT)
+row format delimited fields terminated by '\t';
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/HadoopExamples/hive/messages.txt' into table messages;
+
+Create Partition table
+--------------------------------
+create table messagespart (name STRING, id INT)
+partitioned by (year int, month int)
+row format delimited fields terminated by '\t';
+
+Create partitions mannualy
+--------------------------------
+alter table messagespart add partition(year=2013,month=3);
+alter table messagespart add partition(year=2014,month=3);
+
+Load data into the partition
+--------------------------------
+FROM MESSAGES msg INSERT OVERWRITE TABLE MESSAGESPART PARTITION(year,month) select msg.name,msg.id, msg.year, msg.month DISTRIBUTE BY year, month;  
+
+
+
+Drop Partition
+------------------------------
+alter table messages DROP partition(year=2013,month=3);
+
+
+Joins
+-----------------------------
+
+CREATE TABLE EMPLOYEE(
+name STRING,
+salary FLOAT,
+city STRING)
+row format delimited fields terminated by ',';
+
+load data local inpath '/home/cloudera/Desktop/HadoopExamples/hive/emp.txt' into table employee;
+
+CREATE TABLE MAILID(
+name STRING,
+email STRING)
+row format delimited fields terminated by ',';
+
+load data local inpath '/home/cloudera/Desktop/HadoopExamples/hive/email.txt' into table mailid;
+
+Inner Join
+-----------------
+
+select a.name, a.city, a.salary, b.email from employee a join mailid b on a.name=b.name;
+
+Left Outer Join
+-----------------
+
+select a.name, a.city, a.salary, b.email from employee a left outer join mailid b on a.name=b.name;
+
+Right Outer Join
+-----------------
+
+select a.name, a.city, a.salary, b.email from employee a right outer join mailid b on a.name=b.name;
+
+Full Outer Join
+-----------------
+
+select a.name, a.city, a.salary, b.email from employee a full outer join mailid b on a.name=b.name;
+
+
+Custom Mapper
+---------------------------------
+CREATE TABLE U_DATA(
+userid INT,
+movieid INT,
+rating INT,
+unixtime STRING)
+row format delimited fields terminated by '\t';
+
+load data local inpath '/home/cloudera/hadoopmorningbatch/hive/u.data' into table U_DATA;
+
+CREATE TABLE U_DATA_NEW(
+userid INT,
+movieid INT,
+rating INT,
+weekday INT)
+row format delimited fields terminated by '\t';
+
+add FILE /home/cloudera/hadoopmorningbatch/hive/weekday_mapper.py; 
+
+
+INSERT OVERWRITE TABLE U_DATA_NEW SELECT TRANSFORM (userid,movieid,rating,unixtime) 
+using 'python /home/cloudera/hadoopmorningbatch/hive/weekday_mapper.py'
+as (userid,movieid,rating,weekday)
+from u_data;
+
+User Defined Function
+-----------------------
+
+ADD JAR /home/cloudera/Desktop/HadoopExamples/hive/hiveudf.jar;
+
+create temporary function userdate as 'UnixTimeToDate';
+
+create table HIVEUDFTESTING(
+id STRING,
+unixtime STRING)
+row format delimited fields terminated by ',';
+
+load data local inpath '/home/cloudera/Desktop/HadoopExamples/hive/udf_input.txt' into table HIVEUDFTESTING;
+
+select id , userdate(unixtime) from HIVEUDFTESTING; 
+
+
+
+
+
+
+
+
